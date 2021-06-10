@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        <link rel="canonical" href="https://example.com/">
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>My Docs</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#konten-materi-web-mining" class="nav-link">Konten Materi Web Mining</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="konten-materi-web-mining">Konten Materi Web Mining</h1>
+<h3 id="crawling">Crawling</h3>
+<p>Crawling sama seperti kinerja search engine, yang melakukan pengindeksan untuk mengambil kumpulan halaman dari sebuah web. Langkah-langkah untuk melakukan crawling web adalah</p>
+<ol>
+<li>
+<p>Mencari website yang ingin di crawl datanya</p>
+</li>
+<li>
+<p>Install scrapy di cmd, "pip install scrapy"</p>
+</li>
+<li>
+<p>di cmd, ketik "scrapy startproject nama_folder".</p>
+</li>
+<li>
+<p>pergi ke vscode, ke terminal ketik "scrapy genspider nama_folder link_web_yang_akan_di_crawl".</p>
+</li>
+<li>
+<p>kemudian pergi ke folder yang telah dibuat tadi dan ketikkan code nya
+   <code>import scrapy</code></p>
+</li>
+</ol>
+<p>​    <code>name = 'data_produk'</code></p>
+<p>​    <code>start_urls = ['https://www.urbanicon.co.id/sale-products.html/']</code></p>
+<p>​    <code>def parse(self, response):</code></p>
+<p>​        <code>for element in response.css(".item"):</code></p>
+<p>​            <code>yield{</code></p>
+<p>​                <code>"nama brand" : element.css(".product-brand::text").get(),</code></p>
+<p>​                <code>"nama produk": element.css(".product-name a::text").get(),</code></p>
+<p>​                <code>"harga" : element.css(".price::text").get()</code></p>
+<p>​            <code>}</code></p>
+<ol>
+<li>
+<p>pada terminal, ketik "scrapy crawl nama_folder -o nama_folder.json" untuk menyimpan hasil crawlnya </p>
+</li>
+<li>
+<p>Hasil crawl dapat dilihat di folder berformat json</p>
+</li>
+</ol>
+<p><code>[</code></p>
+<p><code>{"nama brand": "\n\t\t\t\t\t\tApple\t\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS 40mm Alumunium Silver Case Seashell Sport Loop", "harga": "\n                    Rp 7.999.000                "},</code></p>
+<p><code>{"nama brand": "\n\t\t\t\t\t\tApple\t\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS 40mm Alumunium Space Grey Case Black Sport Loop", "harga": "\n                    Rp 7.999.000                "},</code></p>
+<p><code>{"nama brand": "\n\t\t\t\t\t\tApple\t\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS 44mm Alumunium Space Grey Case Black Sport Band", "harga": "\n                    Rp 8.499.000                "},</code></p>
+<p><code>{"nama brand": "\n\t\t\t\t\t\tApple\t\t\t\t\t", "nama produk": "Apple Sport Band 38 mm (PRODUCT) RED", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Band 38 mm (PRODUCT) RED", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Band 38 mm Yellow", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Band 38 mm Pebble", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 38 mm Navy/Tahoe Blue Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 38 mm Orange Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 38 mm Tahoe Blue Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 38 mm Pollen Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 38 mm Red Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 42 mm Orange Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 42 mm Berry Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 42 mm Tahoe Blue Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 42 mm Tahoe Pollen Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS 44mm Alumunium Space Grey Case Black Sport Band", "harga": "\n                    Rp 8.499.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS 40mm Alumunium Silver Case Seashell Sport Loop", "harga": "\n                    Rp 7.999.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS 40mm Alumunium Space Grey Case Black Sport Loop", "harga": "\n                    Rp 7.999.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Band 38 mm Midnight Blue", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 38 mm Berry Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 38 mm Midnight Blue Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 42 mm Light Pink/Midnight Blue Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Sport Loop 42 mm Blue Stripe Woven Nylon", "harga": "\n                    Rp 900.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS 44mm Alumunium Space Grey Case Black Sport Loop", "harga": "\n                    Rp 8.499.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS 40mm Alumunium Space Grey Case Black Sport Band", "harga": "\n                    Rp 7.999.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS 40mm Alumunium Gold Case Pink Sand Sport Loop", "harga": "\n                    Rp 7.999.000                "},</code></p>
+<p><code>{"nama brand": "\r\n\t\t\t\t\tApple\t\t\t\t", "nama produk": "Apple Watch Series 4 GPS Nike+ 40mm Alumunium Space Grey Case Black Sport Loop", "harga": "\n                    Rp 7.999.000                "}</code></p>
+<p><code>]</code></p>
+<h3 id="preprocessing">Preprocessing</h3>
+<p>Preprocessing adalah proses untuk mempersiapkan data sehingga dapat di proses dan diolah oleh sistem.</p>
+<p>Berikut code dari preprocessing data</p>
+<p><code>import re</code></p>
+<p><code>import string</code></p>
+<p><code>import csv</code></p>
+<p><code>import pandas as pd</code></p>
+<p><code>from sklearn.feature_extraction.text import CountVectorizer</code></p>
+<p><code>from sklearn.feature_extraction.text import TfidfTransformer</code></p>
+<p><code>from nltk.tokenize.punkt import PunktSentenceTokenizer</code></p>
+<p><code>from nltk.tokenize import word_tokenize</code></p>
+<p><code>from Sastrawi.Stemmer.StemmerFactory import StemmerFactory</code></p>
+<p><code>from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory</code></p>
+<p><code>from newspaper import Article #melakukan import module newspaper</code></p>
+<p><code>\#Scrapping</code></p>
+<p><code>def getUrl(address):</code></p>
+<p>​    <code>url = address #isi url berita</code></p>
+<p>​    <code>article = Article(url) #membuat variabel yang digunakan untuk memanggil Class Article dan menambahkan parameter url</code></p>
+<p>​    <code>article.download() #melakukan download data dari sebuah halaman website</code></p>
+<p>​    <code>article.parse() #melakukan proses parsing atau pengambilan berita</code></p>
+<p>​    <code>berita = article.text</code></p>
+<p>​    <code>praproses(berita)</code></p>
+<p><code>\#Text Processing</code></p>
+<p><code>def praproses(text): #fungsi preprocesing text</code></p>
+<p>​    <code>\#----------- Step1 Case Folding merubah atau menghilangkan karakter yang tidak perlu ------------</code></p>
+<p>​    <code>text.lower() #merubah semua huruf ke huruf kecil</code></p>
+<p>​    <code>text = re.sub(r'\d+', '', text) #menghapus berdasarkan regular expression (angka 0 - 9)</code></p>
+<p>​    <code>\#----------- Step2 Tokenizing data / memisahkan setiap kata ------------</code></p>
+<p>​    <code>doc_tokenizer = PunktSentenceTokenizer()</code></p>
+<p>​    <code>sentences_list = doc_tokenizer.tokenize(text)</code></p>
+<p>​    <code>tempText2 = []</code></p>
+<p>​    <code>for i in sentences_list:</code></p>
+<p>​        <code>getTanslate = i.translate(str.maketrans("","",string.punctuation)) #menghapus tanda baca , . dsb</code></p>
+<p>​        <code>tempText2.append(getTanslate) #tokenizing kata dari data text dengan menggunakan nltk tokenizing</code></p>
+<p>​    <code>\#----------- Step3 Filtering stopword / penghapusan kata yang tidak penting  ------------</code></p>
+<p>​    <code>tempText3 = []</code></p>
+<p>​    <code>factory_stopword = StopWordRemoverFactory()</code></p>
+<p>​    <code>stopword = factory_stopword.create_stop_word_remover()</code></p>
+<p>​    <code>for i in tempText2:</code></p>
+<p>​        <code>removed = stopword.remove(i)</code></p>
+<p>​        <code>tempText3.append(removed)</code></p>
+<p>​    <code>\#----------- Step4 Stemming / menghilangkan infleksi atau kata imbuhan ke bentuk kata dasar ------------</code></p>
+<p>​    <code>hasil = []</code></p>
+<p>​    <code>factory_stemm = StemmerFactory()</code></p>
+<p>​    <code>stemm = factory_stemm.create_stemmer()</code></p>
+<p>​    <code>for i in tempText3:</code></p>
+<p>​        <code>stemmed = stemm.stem(i)</code></p>
+<p>​        <code>hasil.append(stemmed)</code></p>
+<p>​    <code>print(hasil)</code></p>
+<p>​    <code>vsmTfidf(hasil) #melakukan return berupa hasil akhir text yang sudah diproses tadi</code></p>
+<p><code>\#VSM dan TfIdf</code></p>
+<p><code>def vsmTfidf(text): #fungsi vsmtfidf</code></p>
+<p>​    <code>hasil = text</code></p>
+<p>​    <code>count = CountVectorizer()</code></p>
+<p>​    <code>bag = count.fit_transform(hasil)</code></p>
+<p>​    <code>feature = count.get_feature_names()</code></p>
+<p>​    <code>a = feature</code></p>
+<p>​    <code>matrik_vsm = bag.toarray()</code></p>
+<p>​    <code>dfVsm = pd.DataFrame(data=matrik_vsm,index=list(range(1, len(matrik_vsm[:,1])+1, )),columns=a)</code></p>
+<p>​    <code>dfVsm.to_csv(r'vsm.csv')</code></p>
+<p>​    <code>print(dfVsm)</code></p>
+<p>​    <code>tfidf = TfidfTransformer(use_idf=True, norm='l2', smooth_idf=True) #memanggil class tfidfTransformer dengan parameter dan menyimpannya ke variabel</code></p>
+<p>​    <code>convertarray = tfidf.fit_transform(count.fit_transform(hasil)).toarray() #menghitung data dari dataframe dan menyimpannya ke variabel dalam bentuk array</code></p>
+<p>​    <code>print(convertarray) #melakukan print hasil perhitungan</code></p>
+<p>​    <code>print("=========== Exporting to csv ===========")</code></p>
+<p>​    <code>dfbtf = pd.DataFrame(data=convertarray, columns=a) #membuat sebuah dataframe baru dengan data yang sudah kita hitung tfidf nya</code></p>
+<p>​    <code>dfbtf.to_csv(r'tfidftweet.csv') #melakukan export dataframe kedalam csv file</code></p>
+<p><code>getUrl("https://www.medcom.id/teknologi/news-teknologi/yNL4VP2N-berita-teknologi-terpopuler-nokia-5-4-hingga-poco-x3/")</code></p>
+<h3 id="modelling">Modelling</h3>
+<p>Modelling adalah proses untuk menemukan kelompok pada sebuah kata dari dokumen yang diberikan. Misalnya seperti 'penyakit', 'kanker', 'pasien', 'dokter' akan mewakili kelompok 'kesehatan'.</p>
+<p><img alt="1*cDwKSHmfp5awjqjobV707g.png () (medium.com)" src="" /></p>
+<ul>
+<li>Kasus penggunaan dari topik modelling adalah:</li>
+<li>Ringkasan Resume</li>
+<li>Search Engine Optimization</li>
+<li>Pengoptimalan Sistem Rekomendasi</li>
+<li>Meningkatkan Dukungan Pelanggan</li>
+</ul>
+<p>Dalam industri perawatan kesehatan, pemodelan topik dapat membantu kita mengekstrak informasi yang berguna dan berharga dari laporan medis yang tidak terstruktur. Informasi ini dapat digunakan untuk pengobatan pasien dan tujuan penelitian ilmu kedokteran. </p>
+<h3 id="metode-evaluasi-ringkasan-otomatis">Metode Evaluasi Ringkasan Otomatis</h3>
+<p>ROUGE adalah yang paling banyak digunakan untuk mengevaluasi secara otomatis. Berikut metode yang paling banyak digunakan. </p>
+<ul>
+<li>ROUGE-n. 
+  Metode ukurannya didasarkan pada recall dan didasarkan pada membandingkan dari n-gram.</li>
+<li>ROUGE-L. 
+  Ukuran ini menggunakan Uprangkaian bersama terpanjang (Longest
+  common subsequence) diantara serangkaian teks. Artinya semakin panjang LCS antara dua
+  ringkasan kalimat maka semakin mirip.</li>
+<li>ROUGE-W
+  ROUGE-L mempertimbangkan LCS tetapi tidak memberikan preferensi pada kalimat yang
+  memiliki kata-kata yang lebih berurutan.</li>
+<li>ROUGE-S
+  ROUGE-S mengukur kejadian bersama skip bigram pada ringkasan rujukan dan ringkasan mesin.</li>
+<li>ROUGE-SU
+  Kelemahan dari ROUGE-S adalah hanya memperhatikan bigrams. JIka kalimat tidak berisi satu bigram yang overlaping maka tidak a kan menghasilkan bobot pada kalimat. Untuk mengatasi masalah ini ROUGE-S ini maka munculllah ROUGE-SU yang merupakan pengembangannya yang juga memperhatikan unigram.</li>
+</ul>
+<p><code>Implementasi Rouge dengan python</code>
+<code>Instalasi library</code>
+<code>atau</code>
+<code>pip install git+https://github.com/tagucci/pythonrouge.gitImplementasi kedua</code>
+<code>pip install easy-rouge</code>
+<code>from rouge.rouge import rouge_n_sentence_level</code>
+<code>summary_sentence = 'the capital of China is Beijing'.split()</code>
+<code>reference_sentence = 'Beijing is the capital of China'.split()</code></p>
+<p><code>recall, precision, rouge = rouge_n_sentence_level(summary_sentence,</code>
+<code>reference_sentence, 2)</code>
+<code>print('ROUGE-2-R', recall)</code>
+<code>print('ROUGE-2-P', precision)</code>
+<code>print('ROUGE-2-F', rouge)</code>
+<code>ROUGE-2-R 0.6</code>
+<code>ROUGE-2-P 0.6</code>
+<code>ROUGE-2-F 0.6</code>
+<code>ROUGE-2-R 0.6</code>
+<code>from rouge import rouge_n_sentence_level</code>
+<code>from rouge import rouge_l_sentence_level</code>
+<code>from rouge import rouge_n_summary_level</code>
+<code>from rouge import rouge_l_summary_level</code>
+<code>from rouge import rouge_w_sentence_level</code>
+<code>from rouge import rouge_w_summary_level</code>
+<code>reference_sentence = 'the police killed the gunman'.split()</code>
+<code>summary_sentence = 'the gunman police killed'.split()</code>
+<code>print('Sentence level:')</code>
+<code>score = rouge_n_sentence_level(summary_sentence, reference_sentence, 1)</code>
+<code>print('ROUGE-1: %f' % score.f1_measure)</code>
+<code>_, _, rouge_2 = rouge_n_sentence_level(summary_sentence, reference_sentence, 2)</code>
+<code>print('ROUGE-2: %f' % rouge_2)</code>
+<code>_, _, rouge_l = rouge_l_sentence_level(summary_sentence, reference_sentence)</code>
+<code>print('ROUGE-L: %f' % rouge_l)</code>
+<code>_, _, rouge_w = rouge_w_sentence_level(summary_sentence, reference_sentence)</code>
+<code>print('ROUGE-W: %f' % rouge_w)</code>
+<code>Sentence level:</code>
+<code>ROUGE-1: 0.888889</code>
+<code>ROUGE-2: 0.571429</code>
+<code>ROUGE-L: 0.666667</code>
+<code>ROUGE-W: 0.550527Outputnya adalah</code>
+<code>Outputnya adalah</code>
+<code>from rouge import rouge_n_sentence_level</code>
+<code>from rouge import rouge_l_sentence_level</code>
+<code>from rouge import rouge_n_summary_level</code>
+<code>from rouge import rouge_l_summary_level</code>
+<code>from rouge import rouge_w_sentence_level</code>
+<code>from rouge import rouge_w_summary_level</code>
+<code>reference_sentences = ['The gunman was shot dead by the police before more</code>
+<code>people got hurt'.split(),</code>
+<code>'This tragedy causes lives of five , the gunman included'.split(),</code>
+<code>'The motivation of the gunman remains unclear'.split(),</code>
+<code>]</code>
+<code>summary_sentences = [ 'Police killed the gunman . no more people got</code>
+<code>hurt'.split(),</code>
+<code>'Five people got killed including the gunman'.split(),</code>
+<code>'It is unclear why the gunman killed people'.split(),</code>
+<code>]</code>
+<code>print('Summary level:')</code>
+<code>_, _, rouge_1 = rouge_n_summary_level(summary_sentences, reference_sentences, 1)</code>
+<code>print('ROUGE-1: %f' % rouge_1)</code>
+<code>_, _, rouge_2 = rouge_n_summary_level(summary_sentences, reference_sentences, 2)</code>
+<code>print('ROUGE-2: %f' % rouge_2)</code>
+<code>_, _, rouge_l = rouge_l_summary_level(summary_sentences, reference_sentences)</code>
+<code>print('ROUGE-L: %f' % rouge_l)</code>
+<code>_, _, rouge_w = rouge_w_summary_level(summary_sentences, reference_sentences)</code>
+<code>print('ROUGE-W: %f' % rouge_w)</code>
+<code>Summary level:</code>
+<code>ROUGE-1: 0.400000</code>
+<code>ROUGE-2: 0.188679</code>
+<code>ROUGE-L: 0.327273</code>
+<code>ROUGE-W: 0.200430</code>
+<code>recall, precision, rouge_1 = rouge_n_summary_level(summary_sentences,</code>
+<code>reference_sentences, 1)</code>
+<code>print('ROUGE-2-R', recall)</code>
+<code>print('ROUGE-2-P', precision)</code>
+<code>print('ROUGE-2-F', rouge)ROUGE-2-R 0.36666666666666664</code>
+<code>ROUGE-2-P 0.44</code>
+<code>ROUGE-2-F 0.6</code></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.2.1
+Build Date UTC : 2021-06-10 10:16:19.541239+00:00
+-->
